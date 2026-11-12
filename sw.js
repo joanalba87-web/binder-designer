@@ -5,7 +5,7 @@
 // - Card images from the public image servers: cached when first shown, so
 //   pages already seen keep their images offline. They are the only external
 //   requests the app makes, and they are optional.
-const APP = "bd-app-v4";
+const APP = "bd-app-v5";
 const IMAGES = "bd-card-images-v1";
 const IMAGE_HOSTS = ["images.scrydex.com", "images.pokemontcg.io", "assets.tcgdex.net"];
 const MAX_IMAGES = 600;
@@ -77,7 +77,9 @@ self.addEventListener("fetch", (e) => {
 async function cacheFirst(name, req, trim) {
   const c = await caches.open(name);
   const hit = await c.match(req);
-  if (hit) return hit;
+  // An image first shown in the page is cached as "opaque"; "Desa la imatge" asks for it
+  // with CORS (to draw it in a canvas), so that request must go to the network.
+  if (hit && !(req.mode === "cors" && hit.type === "opaque")) return hit;
   const res = await fetch(req);
   if (res.ok || res.type === "opaque") {
     c.put(req, res.clone());
