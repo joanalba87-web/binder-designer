@@ -5,7 +5,7 @@
 // - Card images from the public image servers: cached when first shown, so
 //   pages already seen keep their images offline. They are the only external
 //   requests the app makes, and they are optional.
-const APP = "bd-app-v3";
+const APP = "bd-app-v4";
 const IMAGES = "bd-card-images-v1";
 const IMAGE_HOSTS = ["images.scrydex.com", "images.pokemontcg.io", "assets.tcgdex.net"];
 const MAX_IMAGES = 600;
@@ -18,6 +18,7 @@ const CORE = [
   "./data/pca.bin",
   "./data/world.bin",
   "./data/subject.bin",
+  "./data/technique.bin",
   "./models/Xenova/clip-vit-base-patch32/config.json",
   "./models/Xenova/clip-vit-base-patch32/preprocessor_config.json",
   "./models/Xenova/clip-vit-base-patch32/onnx/vision_model_quantized.onnx",
